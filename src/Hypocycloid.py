@@ -1,11 +1,11 @@
 import numpy as np
 
-from GearMaterialProperties import GearMaterialProperties
+from MaterialProperties import MaterialProperties
 from StressCalculation import StressCalculation
-
+from mohr2d import mohr
 
 class Hypocycloid():
-    def __init__(self, N:int, R: float, r:float, face_width:float,force:list[float],material:GearMaterialProperties,tooth_root:float,tooth_height:float,cycle:int,omega:float=None) -> None:
+    def __init__(self, N:int, R: float, r:float, face_width:float,force:list[float],material:MaterialProperties,tooth_root:float,tooth_height:float,cycle:int,omega:float=None) -> None:
         self.N=N
         self.R=R 
         self.r=r
@@ -22,7 +22,7 @@ class Hypocycloid():
         if omega is not None:
             self.calculateV()
         self.cycle=cycle
-        
+
     def calculateV(self):
         self.V=abs(self.omega*self.pitch_dia/2)
     def calculateBendingStress(self):
@@ -38,7 +38,6 @@ class Hypocycloid():
         self.AllowableContactStress = self.material.S_c*StressCalculation.Z_N(self.cycle)*StressCalculation.Z_N(self.cycle)/(StressCalculation.Y_Theta()*StressCalculation.Y_Z())
 
     def calculateStresses(self):
-        print(self.force[0])
         self.calculateV()
         self.calculateBendingStress()
         self.calculateContactStress()
@@ -47,3 +46,4 @@ class Hypocycloid():
         
         self.FactorofSafety_Bending = self.AllowableBendingStress/self.BendingStress
         self.FactorofSafety_Contact = self.AllowableContactStress/self.ContactStress
+        return (self.FactorofSafety_Bending,self.FactorofSafety_Contact)

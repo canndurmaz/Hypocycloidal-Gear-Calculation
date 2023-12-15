@@ -1,6 +1,6 @@
 import numpy as np
 
-class GearMaterialProperties():
+class MaterialProperties():
     def __init__(self,grade:int,Brinell_hardness:float,poisson_ratio:float,Youngs_Modulus:float,yield_strength:float,UTS:float,density:float) -> None:
         self.poisson=poisson_ratio
         self.Young=Youngs_Modulus

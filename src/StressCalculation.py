@@ -1,6 +1,6 @@
 import numpy as np
 
-from GearMaterialProperties import GearMaterialProperties
+from MaterialProperties import MaterialProperties
 
 
 class StressCalculation():
@@ -50,7 +50,7 @@ class StressCalculation():
         return 1
     def Z_I():
         return 1
-    def Z_E(material:GearMaterialProperties):
+    def Z_E(material:MaterialProperties):
         return np.sqrt(1/(np.pi*2*((1-material.poisson**2)/(material.Young))))
     def Y_N(N):
         return 2.3194*N**(-0.0538)
